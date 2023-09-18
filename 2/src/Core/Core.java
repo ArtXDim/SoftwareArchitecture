@@ -19,39 +19,41 @@ public class Core {
         List<ItemGenerator> generatorList = new ArrayList<>();
 
         //generatorList.add(new GoldGenerator());
-        //generatorList.add(new SilverGenerator());
+        //generatorList
+        .add(new SilverGenerator());
         //ItemGenerator myGenerator = generatorList.get(1);
         //System.out.println(myGenerator.openReward());
 
-        Scanner sc = new Scanner(System.in);
-        ItemGenerator myGenerator;
-        int i = 0;
+        try (Scanner sc = new Scanner(System.in)) {
+            ItemGenerator myGenerator;
+            int i = 0;
 
-        while (true) {
+            while (true) {
 
-            // Разделим выдачу серебра и золота в пропорции 80/20
-            // Для этого генерируем число от 0 до 9. Если "выпадет" число меньше 8, то будем выдавать серебро.
-            Random random = new Random();
-            int randomNumber = random.nextInt(10);
+                // Разделим выдачу серебра и золота в пропорции 80/20
+                // Для этого генерируем число от 0 до 9. Если "выпадет" число меньше 8, то будем выдавать серебро.
+                Random random = new Random();
+                int randomNumber = random.nextInt(10);
 
-            if (randomNumber < 8)
-                generatorList.add(new SilverGenerator());
-            else
-                generatorList.add(new GoldGenerator());
+                if (randomNumber < 8)
+                    generatorList.add(new SilverGenerator());
+                else
+                    generatorList.add(new GoldGenerator());
 
-            myGenerator = generatorList.get(i);
+                myGenerator = generatorList.get(i);
 
-            System.out.println((i + 1) + ". Ваша награда: " + myGenerator.openReward());
-            System.out.println();
+                System.out.println((i + 1) + ". Ваша награда: " + myGenerator.openReward());
+                System.out.println();
 
-            System.out.printf("Продолжить (Y/N)? ");
+                System.out.printf("Продолжить (Y/N)? ");
 
-            if (sc.nextLine().toLowerCase().equals("n")) {
-                break;
+                if (sc.nextLine().toLowerCase().equals("n")) {
+                    break;
+                }
+                System.out.println();
+
+                i++;
             }
-            System.out.println();
-
-            i++;
         }
     }
 }
