@@ -35,99 +35,103 @@ public class Core {
 
         System.out.println("\n=============== Старт ===============");
 
-        Scanner sc = new Scanner(System.in);
-        String cmd;
+        try (Scanner sc = new Scanner(System.in)) {
+            String cmd;
 
-        while (true) {
+            while (true) {
 
-            System.out.printf("Введите команду: ");
+                System.out.printf("Введите команду: ");
 
-            cmd = sc.nextLine().trim().toLowerCase();
+                cmd = sc.nextLine().trim().toLowerCase();
 
-            // Выход из программы
-            if (cmd.equals("exit")) {
-                System.out.println("\n=============== Выход ===============");
-                break;
-            }
-
-            // Информация о машине
-            if (cmd.equals("info")) {
-                System.out.println(myCar);
-                continue;
-            }
-
-            // Переключение скорости
-            if (cmd.matches("\\d+")) {
-                myCar.gearShift(Integer.parseInt(cmd));
-                continue;
-            }
-
-            // Движение
-            if (cmd.equals("go") || cmd.equals("stop")) {
-                myCar.move(cmd.equals("go"));
-                continue;
-            }
-
-            // Обслуживание
-            if (cmd.equals("service on") || cmd.equals("service off")) {
-                myCar.service(cmd.equals("service on"));
-                continue;
-            }
-
-            // Фары
-            if (cmd.equals("lights on") || cmd.equals("lights off")) {
-                myCar.lights(cmd.equals("lights on"));
-                continue;
-            }
-
-            // Дворники
-            if (cmd.equals("wipers on") || cmd.equals("wipers off")) {
-                myCar.wipers(cmd.equals("wipers on"));
-                continue;
-            }
-
-            if (cmd.length() > 5 && cmd.substring(0, 5).equals("move ")) {
-                myCar.setMoveMode(cmd.substring(5));
-                continue;
-            }
-
-            // Уборка улицы
-            if (cmd.equals("clean on") || cmd.equals("clean off")) {
-                if (myCar instanceof IStreetCleanerCar) {
-                    IStreetCleanerCar streetCleanerCar = (IStreetCleanerCar) myCar;
-                    streetCleanerCar.cleanStreet(cmd.equals("clean on"));
+                // Выход из программы
+                if (cmd.equals("exit")) {
+                    System.out.println("\n=============== Выход ===============");
+                    break;
                 }
-                else {
-                    System.out.println("Функции уборки улиц у машины нет.");
-                }
-                continue;
-            }
 
-            // Противотуманные фары
-            if (cmd.equals("foglights on") || cmd.equals("foglights off")) {
-                if (myCar instanceof IFogLightsCar) {
-                    IFogLightsCar fogLightsCar = (IFogLightsCar) myCar;
-                    fogLightsCar.fogLights(cmd.equals("foglights on"));
+                // Информация о машине
+                if (cmd.equals("info")) {
+                    System.out.println(myCar);
+                    continue;
                 }
-                else {
-                    System.out.println("Противотуманных фар у машины нет.");
-                }
-                continue;
-            }
 
-            // Перевозка грузов
-            if (cmd.equals("cargo on") || cmd.equals("cargo off")) {
-                if (myCar instanceof ICargoCar) {
-                    ICargoCar cargoCar = (ICargoCar) myCar;
-                    cargoCar.cargo(cmd.equals("cargo on"));
+                // Переключение скорости
+                if (cmd.matches("\\d+")) {
+                    myCar.gearShift(Integer.parseInt(cmd));
+                    continue;
                 }
-                else {
-                    System.out.println("Машина не имеет функции перевозки грузов.");
-                }
-                continue;
-            }
 
-            System.out.println("Команда не распознана.");
+                // Движение
+                if (cmd.equals("go") || cmd.equals("stop")) {
+                    myCar.move(cmd.equals("go"));
+                    continue;
+                }
+
+                // Обслуживание
+                if (cmd.equals("service on") || cmd.equals("service off")) {
+                    myCar.service(cmd.equals("service on"));
+                    continue;
+                }
+
+                // Фары
+                if (cmd.equals("lights on") || cmd.equals("lights off")) {
+                    myCar.lights(cmd.equals("lights on"));
+                    continue;
+                }
+
+                // Дворники
+                if (cmd.equals("wipers on") || cmd.equals("wipers off")) {
+                    myCar.wipers(cmd.equals("wipers on"));
+                    continue;
+                }
+
+                if (cmd.length() > 5 && cmd.substring(0, 5).equals("move ")) {
+                    myCar.setMoveMode(cmd.substring(5));
+                    continue;
+                }
+
+                // Уборка улицы
+                if (cmd.equals("clean on") || cmd.equals("clean off")) {
+                    if (myCar instanceof IStreetCleanerCar) {
+                        IStreetCleanerCar streetCleanerCar = (IStreetCleanerCar) myCar;
+                        streetCleanerCar.cleanStreet(cmd.equals("clean on"));
+                    }
+                    else {
+                        System.out.println("Функции уборки улиц у машины нет.");
+                    }
+                    continue;
+                }
+
+                // Противотуманные фары
+                if (cmd.equals("foglights on") || cmd.equals("foglights off")) {
+                    if (myCar instanceof IFogLightsCar) {
+                        IFogLightsCar fogLightsCar = (IFogLightsCar) myCar;
+                        fogLightsCar.fogLights(cmd.equals("foglights on"));
+                    }
+                    else {
+                        System.out.println("Противотуманных фар у машины нет.");
+                    }
+                    continue;
+                }
+
+                // Перевозка грузов
+                if (cmd.equals("cargo on") || cmd.equals("cargo off")) {
+                    if (myCar instanceof ICargoCar) {
+                        ICargoCar cargoCar = (ICargoCar) myCar;
+                        cargoCar.cargo(cmd.equals("cargo on"));
+                    }
+                    else {
+                        System.out.println("Машина не имеет функции перевозки грузов.");
+                    }
+                    continue;
+                }
+
+                System.out.println("Команда не распознана.");
+            }
+        } catch (NumberFormatException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 }

@@ -47,6 +47,6 @@ public class Kamaz extends Car
 
     @Override
     public void refuel() {
-        System.out.println("Машина "+this.make+" заправилась топливом "+this.fuelType);
+        System.out.println("Машина "+Kamaz.make+" заправилась топливом "+this.fuelType);
     }
 }

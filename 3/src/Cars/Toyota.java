@@ -14,7 +14,7 @@ public class Toyota extends Car implements IFuelStation, IFuelStationCleaning, I
 
     @Override
     public void refuel() {
-        System.out.println("Машина "+this.make+" заправилась топливом "+this.fuelType);
+        System.out.println("Машина "+Toyota.make+" заправилась топливом "+this.fuelType);
     }
 
     @Override
